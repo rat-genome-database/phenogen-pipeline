@@ -1,0 +1,8 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <bean id="manager" class="edu.mcw.rgd.PhenoGenImport">
+        <property name="version" value="--PhenoGen Import pipeline -- ver. 1.0.7 -- Sep 17, 2018 --" />
+        <property name="srcPipeline" value="PhenoGen" />
+    </bean>
+</beans>

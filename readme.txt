@@ -1,0 +1,24 @@
+ver 1.0.7, Sep 17, 2018
+  -moved to github, from subversion
+
+ver 1.0.6, Aug 20, 2018
+  -update to log4j logging, spring framework 5
+
+ver 1.0.5, Mar 19, 2018
+  -moved some hard-coded values to property file
+
+ver 1.0.4, Apr 3, 2017
+  -updated build from ANT to GRADLE
+
+ver 1.0.3, Mar 9, 2015
+  -updated jars
+
+ver 1.0.2, Sep 8, 2014
+  -updated jars, added logging of total PhenoGenIds for rat/mouse into spring logger
+   (tables REPORT_EXTRACTS + REPORT_PROCESS_TYPES)
+
+ver 1.0.1, Jul 10, 2014
+  -updated jars, reduced redundancy in summary email reports
+
+ver 1.0, Jan 15, 2014
+  -first pipeline version, logic based on code of cosmicPipeline
