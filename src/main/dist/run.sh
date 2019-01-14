@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 #
-# pipeline wrapper script calling gradle-generated script
-#
 # load external database ids for PhenoGen
 #
 . /etc/profile
@@ -10,9 +8,8 @@ APPDIR=/home/rgddata/pipelines/$APPNAME
 SERVER=`hostname -s | tr '[a-z]' '[A-Z]'`
 
 cd $APPDIR
-DB_OPTS="-Dspring.config=$APPDIR/../properties/default_db.xml"
-LOG4J_OPTS="-Dlog4j.configuration=file://$APPDIR/properties/log4j.properties"
-declare -x "PHENO_GEN_PIPELINE_OPTS=$DB_OPTS $LOG4J_OPTS"
-bin/$APPNAME "$@" 2>&1 > run.log
+java -Dspring.config=$APPDIR/../properties/default_db.xml \
+    -Dlog4j.configuration=file://$APPDIR/properties/log4j.properties \
+    -jar lib/$APPNAME.jar "$@" > run.log 2>&1
 
 mailx -s "[$SERVER] PhenoGen Pipeline Run" rgd.developers@mcw.edu < run.log
