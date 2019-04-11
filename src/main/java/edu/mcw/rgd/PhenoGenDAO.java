@@ -22,8 +22,8 @@ public class PhenoGenDAO {
     Logger logInserted = Logger.getLogger("insertedIds");
     Logger logDeleted = Logger.getLogger("deletedIds");
 
-    public PhenoGenDAO() {
-        System.out.println(xdao.getConnectionInfo());
+    public String getConnectionInfo() {
+        return xdao.getConnectionInfo();
     }
 
     public List<XdbId> getPhenoGenXdbIds(int speciesTypeKey, String srcPipeline) throws Exception {

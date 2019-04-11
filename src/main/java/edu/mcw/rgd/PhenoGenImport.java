@@ -10,6 +10,7 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.core.io.FileSystemResource;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -29,7 +30,6 @@ public class PhenoGenImport {
         DefaultListableBeanFactory bf = new DefaultListableBeanFactory();
         new XmlBeanDefinitionReader(bf).loadBeanDefinitions(new FileSystemResource("properties/AppConfigure.xml"));
         PhenoGenImport manager = (PhenoGenImport) (bf.getBean("manager"));
-        System.out.println(manager.getVersion());
 
         try {
             manager.run();
@@ -40,6 +40,11 @@ public class PhenoGenImport {
     }
 
     public void run() throws Exception {
+        log.info(getVersion());
+        log.info("  "+dao.getConnectionInfo());
+        SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        log.info("   started at "+sdt.format(new Date()));
+
         run(SpeciesType.RAT);
         run(SpeciesType.MOUSE);
     }
