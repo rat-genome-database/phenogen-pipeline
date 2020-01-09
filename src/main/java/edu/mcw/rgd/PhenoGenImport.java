@@ -86,17 +86,17 @@ public class PhenoGenImport {
 
         // loading
         if( !idsToBeInserted.isEmpty() ) {
-            log.info(species+" PhenoGen ids inserted: "+idsToBeInserted.size());
+            log.info(species+" PhenoGen ids inserted: "+Utils.formatThousands(idsToBeInserted.size()));
             dao.insertXdbs(idsToBeInserted);
         }
 
         if( !idsToBeDeleted.isEmpty() ) {
-            log.info(species+" PhenoGen ids deleted: "+idsToBeDeleted.size());
+            log.info(species+" PhenoGen ids deleted: "+Utils.formatThousands(idsToBeDeleted.size()));
             dao.deleteXdbIds(idsToBeDeleted);
         }
 
         if( !idsMatching.isEmpty() ) {
-            log.info(species+" PhenoGen ids up-to-date: "+idsMatching.size());
+            log.info(species+" PhenoGen ids up-to-date: "+Utils.formatThousands(idsMatching.size()));
             dao.updateModificationDate(idsMatching);
         }
 
@@ -108,7 +108,7 @@ public class PhenoGenImport {
         String diffCountStr = diffCount!=0 ? "     difference: "+ plusMinusNF.format(diffCount) : "     no changes";
         log.info(species+" PhenoGen ids total: "+Utils.formatThousands(finalXdbIdCount)+diffCountStr);
 
-        log.info("=== OK for "+species+"; elapsed "+ Utils.formatElapsedTime(time0, System.currentTimeMillis()));
+        log.info("=== OK for "+species+"  elapsed "+ Utils.formatElapsedTime(time0, System.currentTimeMillis()));
     }
 
     List<XdbId> removeAll(List<XdbId> ids, List<XdbId> idsToBeRemoved) {
@@ -144,7 +144,6 @@ public class PhenoGenImport {
             x.setXdbKey(51);
             x.setCreationDate(new Date());
             x.setModificationDate(x.getCreationDate());
-            x.setLinkText(g.getSymbol());
             incomingIds.add(x);
         }
         return incomingIds;
