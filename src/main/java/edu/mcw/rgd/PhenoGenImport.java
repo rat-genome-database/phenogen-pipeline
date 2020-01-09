@@ -42,6 +42,9 @@ public class PhenoGenImport {
     }
 
     public void run() throws Exception {
+
+        long time0 = System.currentTimeMillis();
+
         log.info(getVersion());
         log.info("  "+dao.getConnectionInfo());
         SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -49,6 +52,9 @@ public class PhenoGenImport {
 
         run(SpeciesType.RAT);
         run(SpeciesType.MOUSE);
+
+        log.info("");
+        log.info("=== OK ===; elapsed "+ Utils.formatElapsedTime(time0, System.currentTimeMillis()));
     }
 
     public void run(int speciesTypeKey) throws Exception {
@@ -56,7 +62,7 @@ public class PhenoGenImport {
         long time0 = System.currentTimeMillis();
 
         String species = SpeciesType.getCommonName(speciesTypeKey);
-        log.info("=== "+species);
+        log.info("");
 
         // QC
         log.debug("  QC: get PhenoGen Ids in RGD for "+species);
@@ -80,29 +86,29 @@ public class PhenoGenImport {
 
         // loading
         if( !idsToBeInserted.isEmpty() ) {
-            log.info("inserting PhenoGene ids for "+species+": "+idsToBeInserted.size());
+            log.info(species+" PhenoGen ids inserted: "+idsToBeInserted.size());
             dao.insertXdbs(idsToBeInserted);
         }
 
         if( !idsToBeDeleted.isEmpty() ) {
-            log.info("deleting PhenoGen ids for "+species+": "+idsToBeDeleted.size());
+            log.info(species+" PhenoGen ids deleted: "+idsToBeDeleted.size());
             dao.deleteXdbIds(idsToBeDeleted);
         }
 
         if( !idsMatching.isEmpty() ) {
-            log.info("matching PhenoGen ids for "+species+": "+idsMatching.size());
+            log.info(species+" PhenoGen ids up-to-date: "+idsMatching.size());
             dao.updateModificationDate(idsMatching);
         }
 
         logSummaryIntoRgdSpringLogger(idsMatching.size()+idsToBeDeleted.size()-idsToBeDeleted.size(), species);
 
         NumberFormat plusMinusNF = new DecimalFormat(" +###,###,###; -###,###,###");
-        int finalXdbIdCount = initialXdbIdCount + idsToBeDeleted.size() - idsToBeDeleted.size();
+        int finalXdbIdCount = initialXdbIdCount + idsToBeInserted.size() - idsToBeDeleted.size();
         int diffCount = finalXdbIdCount - initialXdbIdCount;
         String diffCountStr = diffCount!=0 ? "     difference: "+ plusMinusNF.format(diffCount) : "     no changes";
-        log.info("final PhenoGen IDs count: "+Utils.formatThousands(finalXdbIdCount)+diffCountStr);
+        log.info(species+" PhenoGen ids total: "+Utils.formatThousands(finalXdbIdCount)+diffCountStr);
 
-        log.info("=== Load OK for "+species+"; elapsed "+ Utils.formatElapsedTime(time0, System.currentTimeMillis()));
+        log.info("=== OK for "+species+"; elapsed "+ Utils.formatElapsedTime(time0, System.currentTimeMillis()));
     }
 
     List<XdbId> removeAll(List<XdbId> ids, List<XdbId> idsToBeRemoved) {
