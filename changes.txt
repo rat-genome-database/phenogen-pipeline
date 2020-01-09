@@ -1,3 +1,6 @@
+Jan 09, 2020
+  -refined summary email
+
 ver 1.0.9, Apr 11, 2019
   -improved logging
 

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.core.io.FileSystemResource;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -59,6 +61,7 @@ public class PhenoGenImport {
         // QC
         log.debug("  QC: get PhenoGen Ids in RGD for "+species);
         List<XdbId> idsInRgd = dao.getPhenoGenXdbIds(speciesTypeKey, getSrcPipeline());
+        int initialXdbIdCount = idsInRgd.size();
         log.debug("  QC: get incoming PhenoGen Ids for "+species);
         List<XdbId> idsIncoming = getIncomingIds(speciesTypeKey);
 
@@ -92,6 +95,12 @@ public class PhenoGenImport {
         }
 
         logSummaryIntoRgdSpringLogger(idsMatching.size()+idsToBeDeleted.size()-idsToBeDeleted.size(), species);
+
+        NumberFormat plusMinusNF = new DecimalFormat(" +###,###,###; -###,###,###");
+        int finalXdbIdCount = initialXdbIdCount + idsToBeDeleted.size() - idsToBeDeleted.size();
+        int diffCount = finalXdbIdCount - initialXdbIdCount;
+        String diffCountStr = diffCount!=0 ? "     difference: "+ plusMinusNF.format(diffCount) : "     no changes";
+        log.info("final PhenoGen IDs count: "+Utils.formatThousands(finalXdbIdCount)+diffCountStr);
 
         log.info("=== Load OK for "+species+"; elapsed "+ Utils.formatElapsedTime(time0, System.currentTimeMillis()));
     }
