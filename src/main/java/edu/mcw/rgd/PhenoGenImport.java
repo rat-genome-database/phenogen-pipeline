@@ -54,7 +54,7 @@ public class PhenoGenImport {
         run(SpeciesType.MOUSE);
 
         log.info("");
-        log.info("=== OK ===; elapsed "+ Utils.formatElapsedTime(time0, System.currentTimeMillis()));
+        log.info("=== OK === elapsed "+ Utils.formatElapsedTime(time0, System.currentTimeMillis()));
     }
 
     public void run(int speciesTypeKey) throws Exception {
@@ -108,7 +108,7 @@ public class PhenoGenImport {
         String diffCountStr = diffCount!=0 ? "     difference: "+ plusMinusNF.format(diffCount) : "     no changes";
         log.info(species+" PhenoGen ids total: "+Utils.formatThousands(finalXdbIdCount)+diffCountStr);
 
-        log.info("=== OK for "+species+"  elapsed "+ Utils.formatElapsedTime(time0, System.currentTimeMillis()));
+        log.info("=== OK ===  elapsed "+ Utils.formatElapsedTime(time0, System.currentTimeMillis()));
     }
 
     List<XdbId> removeAll(List<XdbId> ids, List<XdbId> idsToBeRemoved) {
