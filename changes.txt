@@ -1,3 +1,6 @@
+May 21, 2021
+  -distro: renamed distro to 'phenogen-pipeline' from 'PhenoGenPipeline'
+
 Apr 07, 2020
   -tuned up logging
 
