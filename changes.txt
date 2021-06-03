@@ -1,3 +1,6 @@
+Jun 03, 2021
+  renamed git branch 'master' into 'main'
+
 May 21, 2021
   -distro: renamed distro to 'phenogen-pipeline' from 'PhenoGenPipeline'
 
