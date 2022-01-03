@@ -1,3 +1,6 @@
+Jan 03, 2022
+  upgraded log4j to avoid zero day vulnerability
+
 Jun 03, 2021
   renamed git branch 'master' into 'main'
 
