@@ -20,8 +20,8 @@ public class PhenoGenDAO {
     XdbIdDAO xdao = new XdbIdDAO();
     GeneDAO gdao = new GeneDAO();
 
-    Logger logInserted = LogManager.getLogger("insertedIds");
-    Logger logDeleted = LogManager.getLogger("deletedIds");
+    Logger logInserted = LogManager.getLogger("inserted");
+    Logger logDeleted = LogManager.getLogger("deleted");
 
     public String getConnectionInfo() {
         return xdao.getConnectionInfo();

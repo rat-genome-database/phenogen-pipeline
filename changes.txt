@@ -1,3 +1,6 @@
+Feb 28, 2022
+  tuned up logging
+
 Jan 18, 2022
   upgraded log4j to avoid some vulnerabilities
 
