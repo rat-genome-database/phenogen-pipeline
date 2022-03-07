@@ -107,7 +107,7 @@ public class PhenoGenImport {
         int finalXdbIdCount = initialXdbIdCount + idsToBeInserted.size() - idsToBeDeleted.size();
         int diffCount = finalXdbIdCount - initialXdbIdCount;
         String diffCountStr = diffCount!=0 ? "     difference: "+ plusMinusNF.format(diffCount) : "     no changes";
-        log.info(species+" PhenoGen ids total:       "+Utils.formatThousands(finalXdbIdCount)+diffCountStr);
+        log.info(species+" PhenoGen ids total:      "+Utils.formatThousands(finalXdbIdCount)+diffCountStr);
 
         log.info("=== OK ===  elapsed "+ Utils.formatElapsedTime(time0, System.currentTimeMillis()));
     }
