@@ -87,12 +87,12 @@ public class PhenoGenImport {
 
         // loading
         if( !idsToBeInserted.isEmpty() ) {
-            log.info(species+" PhenoGen ids inserted: "+Utils.formatThousands(idsToBeInserted.size()));
+            log.info(species+" PhenoGen ids inserted:   "+Utils.formatThousands(idsToBeInserted.size()));
             dao.insertXdbs(idsToBeInserted);
         }
 
         if( !idsToBeDeleted.isEmpty() ) {
-            log.info(species+" PhenoGen ids deleted: "+Utils.formatThousands(idsToBeDeleted.size()));
+            log.info(species+" PhenoGen ids deleted:    "+Utils.formatThousands(idsToBeDeleted.size()));
             dao.deleteXdbIds(idsToBeDeleted);
         }
 
@@ -107,7 +107,7 @@ public class PhenoGenImport {
         int finalXdbIdCount = initialXdbIdCount + idsToBeInserted.size() - idsToBeDeleted.size();
         int diffCount = finalXdbIdCount - initialXdbIdCount;
         String diffCountStr = diffCount!=0 ? "     difference: "+ plusMinusNF.format(diffCount) : "     no changes";
-        log.info(species+" PhenoGen ids total: "+Utils.formatThousands(finalXdbIdCount)+diffCountStr);
+        log.info(species+" PhenoGen ids total:       "+Utils.formatThousands(finalXdbIdCount)+diffCountStr);
 
         log.info("=== OK ===  elapsed "+ Utils.formatElapsedTime(time0, System.currentTimeMillis()));
     }
