@@ -1,3 +1,6 @@
+May 03, 2024
+  updated to java 17
+
 Apr 05, 2023
   updated build.gradle to be gradle 6.x + compatible
 
