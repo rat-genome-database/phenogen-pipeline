@@ -2,7 +2,7 @@
 
 <beans>
     <bean id="manager" class="edu.mcw.rgd.PhenoGenImport">
-        <property name="version" value="phenogen-pipeline  -- build Feb 16, 2026" />
+        <property name="version" value="phenogen-pipeline  -- build Apr 07, 2026" />
         <property name="srcPipeline" value="PhenoGen" />
     </bean>
 </beans>

@@ -4,6 +4,7 @@ import edu.mcw.rgd.datamodel.Gene;
 import edu.mcw.rgd.datamodel.SpeciesType;
 import edu.mcw.rgd.datamodel.XdbId;
 import edu.mcw.rgd.log.RGDSpringLogger;
+import edu.mcw.rgd.process.MemoryMonitor;
 import edu.mcw.rgd.process.Utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,6 +47,9 @@ public class PhenoGenImport {
 
         long time0 = System.currentTimeMillis();
 
+        MemoryMonitor memoryMonitor = new MemoryMonitor();
+        memoryMonitor.start();
+
         log.info(getVersion());
         log.info("  "+dao.getConnectionInfo());
         SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -54,6 +58,8 @@ public class PhenoGenImport {
         run(SpeciesType.RAT);
         run(SpeciesType.MOUSE);
 
+        memoryMonitor.stop();
+        log.info(memoryMonitor.getSummary());
         log.info("");
         log.info("=== OK === elapsed "+ Utils.formatElapsedTime(time0, System.currentTimeMillis()));
     }
@@ -101,7 +107,7 @@ public class PhenoGenImport {
             dao.updateModificationDate(idsMatching);
         }
 
-        logSummaryIntoRgdSpringLogger(idsMatching.size()+idsToBeDeleted.size()-idsToBeDeleted.size(), species);
+        logSummaryIntoRgdSpringLogger(idsMatching.size()+idsToBeInserted.size()-idsToBeDeleted.size(), species);
 
         NumberFormat plusMinusNF = new DecimalFormat(" +###,###,###; -###,###,###");
         int finalXdbIdCount = initialXdbIdCount + idsToBeInserted.size() - idsToBeDeleted.size();
