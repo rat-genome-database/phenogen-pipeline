@@ -1,3 +1,6 @@
+Apr 27, 2026
+  tuned up logging; updated dependencies
+
 Apr 07, 2026
   added MemoryMonitor; updated README; updated dependencies
 

@@ -3,7 +3,6 @@ package edu.mcw.rgd;
 import edu.mcw.rgd.datamodel.Gene;
 import edu.mcw.rgd.datamodel.SpeciesType;
 import edu.mcw.rgd.datamodel.XdbId;
-import edu.mcw.rgd.log.RGDSpringLogger;
 import edu.mcw.rgd.process.MemoryMonitor;
 import edu.mcw.rgd.process.Utils;
 import org.apache.logging.log4j.LogManager;
@@ -61,7 +60,7 @@ public class PhenoGenImport {
         memoryMonitor.stop();
         log.info(memoryMonitor.getSummary());
         log.info("");
-        log.info("=== OK === elapsed "+ Utils.formatElapsedTime(time0, System.currentTimeMillis()));
+        log.info("=== OK === elapsed "+ Utils.formatElapsedTime(time0, System.currentTimeMillis())+"\n\n");
     }
 
     public void run(int speciesTypeKey) throws Exception {
@@ -107,8 +106,6 @@ public class PhenoGenImport {
             dao.updateModificationDate(idsMatching);
         }
 
-        logSummaryIntoRgdSpringLogger(idsMatching.size()+idsToBeInserted.size()-idsToBeDeleted.size(), species);
-
         NumberFormat plusMinusNF = new DecimalFormat(" +###,###,###; -###,###,###");
         int finalXdbIdCount = initialXdbIdCount + idsToBeInserted.size() - idsToBeDeleted.size();
         int diffCount = finalXdbIdCount - initialXdbIdCount;
@@ -130,13 +127,6 @@ public class PhenoGenImport {
         List<XdbId> result = new ArrayList<XdbId>(list1);
         result.retainAll(idsToBeRetained);
         return result;
-    }
-
-    void logSummaryIntoRgdSpringLogger(int phenoGenIdsTotal, String species) throws Exception {
-
-        RGDSpringLogger rgdLogger = new RGDSpringLogger();
-        String subsystem = "PhenoGen"+species;
-        rgdLogger.log(subsystem, "PhenoGenIdsTotal", phenoGenIdsTotal);
     }
 
     List<XdbId> getIncomingIds(int speciesTypeKey) throws Exception {
