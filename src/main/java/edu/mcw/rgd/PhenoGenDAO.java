@@ -17,6 +17,8 @@ import java.util.List;
  */
 public class PhenoGenDAO {
 
+    public static final int XDB_KEY_PHENOGEN = 51;
+
     XdbIdDAO xdao = new XdbIdDAO();
     GeneDAO gdao = new GeneDAO();
 
@@ -30,7 +32,7 @@ public class PhenoGenDAO {
     public List<XdbId> getPhenoGenXdbIds(int speciesTypeKey, String srcPipeline) throws Exception {
 
         XdbId filter = new XdbId();
-        filter.setXdbKey(51);
+        filter.setXdbKey(XDB_KEY_PHENOGEN);
         filter.setSrcPipeline(srcPipeline);
         return xdao.getXdbIds(filter, speciesTypeKey);
     }
@@ -82,7 +84,7 @@ public class PhenoGenDAO {
 
     public int updateModificationDate(List<XdbId> xdbIds) throws Exception {
 
-        List<Integer> xdbKeys = new ArrayList<Integer>(xdbIds.size());
+        List<Integer> xdbKeys = new ArrayList<>(xdbIds.size());
         for( XdbId xdbId: xdbIds ) {
             xdbKeys.add(xdbId.getKey());
         }

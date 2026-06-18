@@ -22,10 +22,10 @@ import java.util.*;
  */
 public class PhenoGenImport {
 
-    private PhenoGenDAO dao = new PhenoGenDAO();
+    private final PhenoGenDAO dao = new PhenoGenDAO();
     private String version;
 
-    Logger log = LogManager.getLogger("status");
+    private final Logger log = LogManager.getLogger("status");
     private String srcPipeline;
 
     public static void main(String[] args) throws Exception {
@@ -85,7 +85,7 @@ public class PhenoGenImport {
         log.debug("  QC: determine matching PhenoGen Ids");
         List<XdbId> idsMatching = retainAll(idsInRgd, idsIncoming);
 
-        // determine to-be-deleted cosmic ids
+        // determine to-be-deleted PhenoGen ids
         log.debug("  QC: determine to-be-deleted PhenoGen Ids");
         List<XdbId> idsToBeDeleted = removeAll(idsInRgd, idsIncoming);
 
@@ -116,31 +116,32 @@ public class PhenoGenImport {
     }
 
     List<XdbId> removeAll(List<XdbId> ids, List<XdbId> idsToBeRemoved) {
-        Set<XdbId> idsToBeRemovedSet = new HashSet<XdbId>(idsToBeRemoved);
-        List<XdbId> result = new ArrayList<XdbId>(ids);
+        Set<XdbId> idsToBeRemovedSet = new HashSet<>(idsToBeRemoved);
+        List<XdbId> result = new ArrayList<>(ids);
         result.removeAll(idsToBeRemovedSet);
         return result;
     }
 
     List<XdbId> retainAll(List<XdbId> list1, List<XdbId> list2) {
-        Set<XdbId> idsToBeRetained = new HashSet<XdbId>(list2);
-        List<XdbId> result = new ArrayList<XdbId>(list1);
+        Set<XdbId> idsToBeRetained = new HashSet<>(list2);
+        List<XdbId> result = new ArrayList<>(list1);
         result.retainAll(idsToBeRetained);
         return result;
     }
 
     List<XdbId> getIncomingIds(int speciesTypeKey) throws Exception {
 
+        Date now = new Date();
         List<Gene> genes = dao.getActiveGenes(speciesTypeKey);
-        List<XdbId> incomingIds = new ArrayList<XdbId>(genes.size());
+        List<XdbId> incomingIds = new ArrayList<>(genes.size());
         for (Gene g: genes) {
             XdbId x = new XdbId();
             x.setAccId(g.getSymbol());
             x.setSrcPipeline(getSrcPipeline());
             x.setRgdId(g.getRgdId());
-            x.setXdbKey(51);
-            x.setCreationDate(new Date());
-            x.setModificationDate(x.getCreationDate());
+            x.setXdbKey(PhenoGenDAO.XDB_KEY_PHENOGEN);
+            x.setCreationDate(now);
+            x.setModificationDate(now);
             incomingIds.add(x);
         }
         return incomingIds;
