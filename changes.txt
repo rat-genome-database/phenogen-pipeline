@@ -1,3 +1,6 @@
+Jul 24, 2026
+  tuned up summary logging
+
 Jun 18, 2026
   introduced XDB_KEY_PHENOGEN constant; minor code cleanups; updated dependencies
 
